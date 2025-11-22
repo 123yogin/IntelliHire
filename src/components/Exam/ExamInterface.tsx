@@ -259,20 +259,20 @@ const ExamInterface: React.FC = () => {
   const currentQ = questions[currentQuestion];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50 flex flex-col lg:flex-row">
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <header className="bg-white border-b border-gray-200 px-6 py-4">
-          <div className="flex items-center justify-between">
+        <header className="bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
             <div>
-              <h1 className="text-xl font-bold text-gray-900">{test.title}</h1>
-              <p className="text-sm text-gray-600">{test.companyName}</p>
+              <h1 className="text-lg sm:text-xl font-bold text-gray-900">{test.title}</h1>
+              <p className="text-xs sm:text-sm text-gray-600">{test.companyName}</p>
             </div>
-            <div className="flex items-center space-x-6">
+            <div className="flex items-center flex-wrap gap-2 sm:gap-4 lg:gap-6">
               <div className="flex items-center space-x-2">
-                <Clock className="w-5 h-5 text-red-500" />
-                <span className={`font-mono text-lg font-bold ${
+                <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />
+                <span className={`font-mono text-base sm:text-lg font-bold ${
                   timeRemaining < 300 ? 'text-red-600' : 'text-gray-900'
                 }`}>
                   {formatTime(timeRemaining)}
@@ -280,15 +280,15 @@ const ExamInterface: React.FC = () => {
               </div>
 
               {violations.length > 0 && (
-                <div className="flex items-center space-x-2 text-red-600 bg-red-50 px-3 py-2 rounded-lg">
-                  <AlertTriangle className="w-5 h-5" />
-                  <span className="font-medium">{violations.length} Violation{violations.length !== 1 ? 's' : ''}</span>
+                <div className="flex items-center space-x-2 text-red-600 bg-red-50 px-2 sm:px-3 py-1 sm:py-2 rounded-lg">
+                  <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="font-medium text-xs sm:text-sm">{violations.length} Violation{violations.length !== 1 ? 's' : ''}</span>
                 </div>
               )}
 
               <button
                 onClick={handleSubmitExam}
-                className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors font-medium"
+                className="bg-red-600 text-white px-4 sm:px-6 py-2 rounded-lg hover:bg-red-700 transition-colors font-medium text-sm sm:text-base"
               >
                 Submit Exam
               </button>
@@ -297,18 +297,18 @@ const ExamInterface: React.FC = () => {
         </header>
 
         {/* Question Content */}
-        <div className="flex-1 p-6">
+        <div className="flex-1 p-4 sm:p-6">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center space-x-4">
-                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6 lg:p-8">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0 mb-4 sm:mb-6">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-4">
+                  <span className="bg-blue-100 text-blue-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">
                     Question {currentQuestion + 1} of {questions.length}
                   </span>
-                  <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
+                  <span className="bg-gray-100 text-gray-700 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">
                     {currentQ.marks} marks
                   </span>
-                  <span className={`px-3 py-1 rounded-full text-sm ${
+                  <span className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm ${
                     currentQ.difficulty === 'easy' ? 'bg-green-100 text-green-800' :
                     currentQ.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-800' :
                     'bg-red-100 text-red-800'
@@ -318,7 +318,7 @@ const ExamInterface: React.FC = () => {
                 </div>
                 <button
                   onClick={toggleFlag}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
+                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors text-sm ${
                     flaggedQuestions.has(currentQuestion)
                       ? 'bg-red-100 text-red-700'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -329,24 +329,24 @@ const ExamInterface: React.FC = () => {
                 </button>
               </div>
 
-              <div className="mb-8">
-                <h2 className="text-lg font-medium text-gray-900 mb-4">
+              <div className="mb-6 sm:mb-8">
+                <h2 className="text-base sm:text-lg font-medium text-gray-900 mb-4">
                   {currentQ.question}
                 </h2>
 
                 {currentQ.type === 'mcq' && currentQ.options && (
-                  <div className="space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     {currentQ.options.map((option, index) => (
-                      <label key={index} className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                      <label key={index} className="flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
                         <input
                           type="radio"
                           name={`question_${currentQ.id}`}
                           value={index}
                           checked={answers[currentQ.id] === index}
                           onChange={(e) => handleAnswerChange(parseInt(e.target.value))}
-                          className="text-blue-600 focus:ring-blue-500"
+                          className="text-blue-600 focus:ring-blue-500 flex-shrink-0"
                         />
-                        <span className="text-gray-900">{option}</span>
+                        <span className="text-sm sm:text-base text-gray-900">{option}</span>
                       </label>
                     ))}
                   </div>
@@ -357,31 +357,32 @@ const ExamInterface: React.FC = () => {
                     value={answers[currentQ.id] || ''}
                     onChange={(e) => handleAnswerChange(e.target.value)}
                     placeholder="Enter your answer here..."
-                    className="w-full h-48 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                    className="w-full h-40 sm:h-48 p-3 sm:p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-sm sm:text-base"
                   />
                 )}
               </div>
 
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-2 sm:gap-4">
                 <button
                   onClick={() => setCurrentQuestion(Math.max(0, currentQuestion - 1))}
                   disabled={currentQuestion === 0}
-                  className="flex items-center space-x-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="flex items-center space-x-1 sm:space-x-2 px-3 sm:px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm sm:text-base"
                 >
                   <ChevronLeft className="w-4 h-4" />
-                  <span>Previous</span>
+                  <span className="hidden sm:inline">Previous</span>
                 </button>
 
-                <div className="text-sm text-gray-600">
-                  Question {currentQuestion + 1} of {questions.length}
+                <div className="text-xs sm:text-sm text-gray-600">
+                  {currentQuestion + 1} / {questions.length}
                 </div>
 
                 <button
                   onClick={() => setCurrentQuestion(Math.min(questions.length - 1, currentQuestion + 1))}
                   disabled={currentQuestion === questions.length - 1}
-                  className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="flex items-center space-x-1 sm:space-x-2 px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm sm:text-base"
                 >
-                  <span>Next</span>
+                  <span className="hidden sm:inline">Next</span>
+                  <span className="sm:hidden">Next</span>
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
@@ -391,7 +392,7 @@ const ExamInterface: React.FC = () => {
       </div>
 
       {/* Proctoring Panel */}
-      <div className="w-80 bg-white border-l border-gray-200 flex flex-col">
+      <div className="w-full lg:w-80 bg-white border-t lg:border-t-0 lg:border-l border-gray-200 flex flex-col order-first lg:order-last">
         <div className="p-4 border-b border-gray-200">
           <h3 className="font-semibold text-gray-900">AI Proctoring</h3>
         </div>

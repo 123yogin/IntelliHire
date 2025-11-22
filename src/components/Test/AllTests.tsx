@@ -25,10 +25,10 @@ const AllTests: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-gray-900">All Tests</h1>
+      <h1 className="text-xl sm:text-2xl font-bold text-gray-900">All Tests</h1>
       
       <div className="bg-white rounded-xl shadow-sm border border-gray-100">
-        <div className="p-6 border-b border-gray-200">
+        <div className="p-4 sm:p-6 border-b border-gray-200">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
             <input
@@ -36,7 +36,7 @@ const AllTests: React.FC = () => {
               placeholder="Search tests by title or description..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
             />
           </div>
         </div>
@@ -45,34 +45,39 @@ const AllTests: React.FC = () => {
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="text-left py-3 px-6 font-medium text-gray-700">Title</th>
-                <th className="text-left py-3 px-6 font-medium text-gray-700">Description</th>
-                <th className="text-left py-3 px-6 font-medium text-gray-700">Duration</th>
-                <th className="text-left py-3 px-6 font-medium text-gray-700">Status</th>
-                <th className="text-left py-3 px-6 font-medium text-gray-700">Created At</th>
-                <th className="text-left py-3 px-6 font-medium text-gray-700">Actions</th>
+                <th className="text-left py-3 px-3 sm:px-6 font-medium text-gray-700 text-sm sm:text-base">Title</th>
+                <th className="text-left py-3 px-3 sm:px-6 font-medium text-gray-700 text-sm sm:text-base hidden md:table-cell">Description</th>
+                <th className="text-left py-3 px-3 sm:px-6 font-medium text-gray-700 text-sm sm:text-base">Duration</th>
+                <th className="text-left py-3 px-3 sm:px-6 font-medium text-gray-700 text-sm sm:text-base">Status</th>
+                <th className="text-left py-3 px-3 sm:px-6 font-medium text-gray-700 text-sm sm:text-base hidden lg:table-cell">Created At</th>
+                <th className="text-left py-3 px-3 sm:px-6 font-medium text-gray-700 text-sm sm:text-base">Actions</th>
               </tr>
             </thead>
             <tbody>
               {filteredTests.length > 0 ? (
                 filteredTests.map(test => (
                   <tr key={test.id} className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-4 px-6 font-medium text-gray-900">{test.title}</td>
-                    <td className="py-4 px-6 text-gray-600">{test.description}</td>
-                    <td className="py-4 px-6 text-gray-600">{test.duration} min</td>
-                    <td className="py-4 px-6">
-                      <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${test.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                    <td className="py-4 px-3 sm:px-6 font-medium text-gray-900 text-sm sm:text-base">
+                      <div>
+                        <div className="font-medium">{test.title}</div>
+                        <div className="text-xs text-gray-500 md:hidden mt-1 line-clamp-2">{test.description}</div>
+                      </div>
+                    </td>
+                    <td className="py-4 px-3 sm:px-6 text-gray-600 text-sm sm:text-base hidden md:table-cell">{test.description}</td>
+                    <td className="py-4 px-3 sm:px-6 text-gray-600 text-sm sm:text-base">{test.duration} min</td>
+                    <td className="py-4 px-3 sm:px-6">
+                      <span className={`px-2 sm:px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${test.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                         {test.isActive ? 'Active' : 'Inactive'}
                       </span>
                     </td>
-                    <td className="py-4 px-6 text-gray-600">{new Date(test.createdAt).toLocaleDateString()}</td>
-                    <td className="py-4 px-6">
-                      <div className="flex items-center space-x-4">
+                    <td className="py-4 px-3 sm:px-6 text-gray-600 text-sm sm:text-base hidden lg:table-cell">{new Date(test.createdAt).toLocaleDateString()}</td>
+                    <td className="py-4 px-3 sm:px-6">
+                      <div className="flex items-center space-x-2 sm:space-x-4">
                         <button onClick={() => setEditingTest(test)} className="text-blue-600 hover:text-blue-800" title="Edit Test">
-                          <Edit className="w-5 h-5" />
+                          <Edit className="w-4 h-4 sm:w-5 sm:h-5" />
                         </button>
                         <button onClick={() => handleDelete(test.id)} className="text-red-600 hover:text-red-800" title="Delete Test">
-                          <Trash2 className="w-5 h-5" />
+                          <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
                         </button>
                       </div>
                     </td>
@@ -80,7 +85,7 @@ const AllTests: React.FC = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={6} className="text-center py-12 text-gray-500">
+                  <td colSpan={6} className="text-center py-12 text-gray-500 text-sm sm:text-base">
                     {searchQuery ? 'No tests found matching your search.' : 'No tests available.'}
                   </td>
                 </tr>
